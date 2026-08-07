@@ -1,0 +1,35 @@
+# GENERAL
+.env
+
+
+# Python
+
+# Cache / compilados
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+
+# TypeScript
+
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
