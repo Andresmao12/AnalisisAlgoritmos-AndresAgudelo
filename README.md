@@ -92,3 +92,14 @@ git status
 git add .
 git commit -m "Descripción del cambio"
 git push
+```
+
+## Contacto
+
+Para cualquier consulta, comentario o información relacionada con este repositorio, puedes contactar al autor:
+
+- **Autor:** Mauro
+- **GitHub:** [Andresmao12](https://github.com/Andresmao12)
+- **Correo:** andresagudelo1114990@correo.itm.edu.co
+
+Este repositorio corresponde al trabajo académico desarrollado durante el curso de **Análisis de Algoritmos**.
