@@ -65,3 +65,30 @@ Para el desarrollo de las actividades del curso se utilizarán principalmente:
 - **Git** para el control de versiones del código.
 - **GitHub** para almacenar y sincronizar el repositorio remoto.
 - Herramientas de medición y graficación para analizar el rendimiento de los algoritmos.
+
+
+# Resumen
+
+## Primera sesion
+
+En esta sesión se estudiaron los fundamentos del **control de versiones** utilizando **Git y GitHub**. Se aprendió a crear y organizar un repositorio, registrar cambios mediante commits y mantener un historial del proyecto.
+
+También se trabajaron conceptos como:
+
+- `git init` para inicializar un repositorio.
+- `.gitignore` para excluir archivos que no deben ser versionados.
+- `README.md` para documentar el proyecto.
+- `git add` y `git commit` para registrar cambios.
+- `git log` y `git diff` para consultar el historial y revisar modificaciones.
+- Repositorios remotos y sincronización mediante `push`, `pull`, `fetch` y `clone`.
+- Ramas (`branch`) y `merge` para trabajar con cambios en paralelo.
+- Conflictos de fusión y su resolución.
+
+### Uso habitual
+
+```bash
+git pull
+git status
+git add .
+git commit -m "Descripción del cambio"
+git push
