@@ -19,7 +19,15 @@ REPETICIONES = 3
 
 
 def medir_tiempo(datos: list[int]) -> float:
-    """Mide el tiempo que tarda insertion sort en ordenar los datos."""
+    """Mide el tiempo que tarda insertion sort en ordenar los datos.
+
+    Args:
+        datos: lista de índices de riesgo que será ordenada.
+
+    Returns:
+        La mediana de los tiempos de ejecución en segundos.
+    """
+
     tiempos = []
 
     for _ in range(REPETICIONES):
@@ -33,7 +41,13 @@ def medir_tiempo(datos: list[int]) -> float:
 
 
 def ejecutar_experimento() -> dict[str, dict[str, list]]:
-    """Ejecuta las mediciones para los tres escenarios."""
+    """Ejecuta las mediciones para los tres escenarios.
+
+    Returns:
+        Diccionario con las comparaciones y tiempos de ejecución
+        obtenidos para cada escenario y tamaño de entrada.
+    """
+
     resultados = {
         "A - Aleatorio": {
             "comparaciones": [],
@@ -70,7 +84,13 @@ def ejecutar_experimento() -> dict[str, dict[str, list]]:
 def graficar_comparaciones(
     resultados: dict[str, dict[str, list]],
 ) -> None:
-    """Genera la gráfica de comparaciones."""
+    """Genera la gráfica de comparaciones.
+
+    Args:
+        resultados: diccionario con las comparaciones de cada
+            escenario para cada tamaño de entrada.
+    """
+
     for nombre, datos in resultados.items():
         plt.plot(
             TAMANOS,
@@ -96,7 +116,13 @@ def graficar_comparaciones(
 def graficar_tiempos(
     resultados: dict[str, dict[str, list]],
 ) -> None:
-    """Genera la gráfica de tiempo de ejecución."""
+    """Genera la gráfica de tiempo de ejecución.
+
+    Args:
+        resultados: diccionario con los tiempos de ejecución de cada
+            escenario para cada tamaño de entrada.
+    """
+
     for nombre, datos in resultados.items():
         plt.plot(
             TAMANOS,
@@ -122,7 +148,13 @@ def graficar_tiempos(
 def imprimir_resultados(
     resultados: dict[str, dict[str, list]],
 ) -> None:
-    """Muestra las mediciones obtenidas en consola."""
+    """Muestra las mediciones obtenidas en consola.
+
+    Args:
+        resultados: diccionario con las comparaciones y tiempos de
+            ejecución de cada escenario.
+    """
+
     for nombre, datos in resultados.items():
         print(f"\n{nombre}")
 
