@@ -26,7 +26,7 @@ Analizar el comportamiento y la complejidad de diferentes algoritmos de ordenami
 * Analizar experimentalmente el tiempo de ejecución y el número de comparaciones.
 * Comparar teórica y experimentalmente insertion sort y merge sort.
 
----
+
 
 ## Situación problema
 
@@ -56,12 +56,12 @@ Primero que todo, debemos tener en cuenta lo siguiente, que un algoritmo sea cor
 
 Ahora bien, antes de invertir en un servidor más rápido es necesario revisar el comportamiento del algoritmo. Insertion sort tiene una complejidad de O(n²), por lo que su cantidad de operaciones crece considerablemente a medida que aumenta el número de registros. Esto ayuda a entender por qué una solución que funcionaba con aproximadamente 20.000 registros ahora tiene dificultades para procesar 1.200.000 dentro de la misma ventana de tiempo.
 
-![alt text](grafica-parte1.png)
+![grafica-parte1.png](graficas/grafica-parte1.png)
 
 Duplicar la velocidad del servidor reduciria el tiempo de ejecución, pero no solucionaría el problema principal. Como ya mencionamos, el algoritmo insertion sort tiene una notacion Big O de n^2, al cambiar el hardware **mejorara el comportamiento, pero seguira siendo n^2**. Y como podemos observar en la grafica, al salirnos lo mas minimo del nuevo margen de 1'200,000 registros, volveremos a tener el mismo problema. Por eso, antes de ampliar la infraestructura, resulta más conveniente evaluar una alternativa de ordenamiento que tenga un mejor comportamiento al trabajar con grandes cantidades de datos.
 
 **Un ejemplo** diferente serían las transacciones interbancarias, desconociendo como funcionan realmente, supongamos que todas las transacciones realizadas el dia 1, deben ser procesadas entre las 06:00h y 10:00h del dia 2, esto siguiendo un orden de bancos ya definidos, por lo cual primero debemos ordenar la lista de transacciones y luego realizarlas. Como problema podemos decir que con el surgimiento de los neobancos y las llaves de Bre-B, el numero de transacciones entre bancos se disparo un 200%. En este caso, un algoritmo puede hacer esta operacion, pero si el incremento hace que nos salgamos de la ventana de tiempo, ya no cumple con lo esperado, y puede que comprar un hardware el doble de potente, lo solucione en este instante, pero si en un mes el numero de transacciones ya no estan 200% arriba, sino un 300% ¿Deberiamos volver a cambiar el hardware? ¿Esto es sostenible a largo plazo?
-}
+
 
 
 # **Parte 2: Responsabilidad ambiental y ética de la implementación**
@@ -72,14 +72,13 @@ Desde el punto de vista ético, el problema es todavía más importante porque l
 
 **Otro posible perjuicio sería para los operadores** del centro de contacto. Si reciben una lista incompleta o desordenada, tendrían que trabajar con información que no representa correctamente la prioridad de los pacientes. Esto puede generar reprocesos, pérdida de tiempo y trabajo adicional, **especialmente si deben revisar nuevamente los registros o corregir manualmente el orden de las llamadas**. En este caso, el operador asume directamente el costo en forma de mayor carga de trabajo, mientras que la Secretaría también tendría que asumir las consecuencias operativas de un sistema que no cumple con su función.
 
-![alt text](mapa-parte2.png)
+![mapa-parte2.png](graficas/mapa-parte2.png)
 
 Ademas, existe una tension entre dos temas que ya mencionamos: terminar a tiempo y garantizar el resultado correcto. no solo basta con encontrar el algoritmo mas rapido, ya que estaria viendose afectada la relacion paciente-secretaria, y como consecuencia de lo ya mencionado (pacientes no reciben su valoracion a tiempo terminan pagando con su salud, secretaria incumple con un acuerdo que existe de por medio) podriamos estar hablando de conflictos entre estos dos actores como perdida de confianza, procesos legales, protestas, etc.
 
 Dicho esto, la elección del algoritmo debe considerar tanto el consumo de recursos como sus consecuencias sobre las personas. En Tamiza, una decisión técnica aparentemente relacionada únicamente con el rendimiento puede terminar afectando la atención que recibe un paciente, el trabajo de los operadores y la responsabilidad de la Secretaría frente al funcionamiento del sistema.
 
 # **Parte 3: Peor caso, mejor caso y caso promedio**
-
 
 
 Para analizar el comportamiento de un algoritmo debemos considerar las diferentes formas en las que pueden llegar los datos. Para esto, primero se fija un tamaño de entrada n y se considera el conjunto de todas las entradas posibles que tienen ese mismo tamaño. Sobre este conjunto se analiza cuántas operaciones realiza el algoritmo.
@@ -109,7 +108,446 @@ Esta es la predicción inicial que se utilizará como referencia para comparar p
 
 # **Parte 4: Complejidad de Merge Sort e Insertion Sort**
 
-> **Proximamente...**
+## 4.1 Cálculo teórico
+
+### Merge Sort
+
+Merge Sort utiliza la estrategia de **divide y vencerás**. El algoritmo divide la lista en dos partes aproximadamente iguales, ordena cada una de forma recursiva y finalmente combina las dos listas ordenadas.
+
+La recurrencia que representa este comportamiento es:
+
+$$
+T(n)=2T(n/2)+\Theta(n)
+$$
+
+Cada término representa una parte específica del algoritmo:
+
+* **\(2T(n/2)\)**: existen dos subproblemas.
+* **\(T(n/2)\)**: cada subproblema contiene aproximadamente la mitad de los elementos.
+* **\(\Theta(n)\)**: corresponde al proceso de combinación de las dos mitades ordenadas. En esta etapa se recorren los elementos de ambas listas para construir la lista final.
+
+El proceso puede representarse de la siguiente manera:
+
+![mapa-parte2.png](graficas/mapa-merge-parte4.png)
+
+
+#### Resolución mediante el método maestro
+
+La forma general del método maestro es:
+
+$$
+T(n)=aT(n/b)+f(n)
+$$
+
+Para Merge Sort:
+
+$$
+a=2
+$$
+
+$$
+b=2
+$$
+
+$$
+f(n)=\Theta(n)
+$$
+
+Calculamos:
+
+$$
+n^{\log_b(a)}
+=
+n^{\log_2(2)}
+=
+n
+$$
+
+Por tanto:
+
+$$
+f(n)=\Theta(n)
+$$
+
+y:
+
+$$
+n^{\log_b(a)}=\Theta(n)
+$$
+
+Se cumple el caso 2 del método maestro, ya que:
+
+$$
+f(n)=\Theta\left(n^{\log_b(a)}\log^k n\right)
+$$
+
+con \(k=0\).
+
+Por lo tanto:
+
+$$
+\boxed{T(n)=\Theta(n\log n)}
+$$
+
+Merge Sort presenta entonces una complejidad de:
+
+$$
+\boxed{\Theta(n\log n)}
+$$
+
+en el mejor, promedio y peor caso.
+
+---
+
+### Insertion Sort
+
+La implementación utilizada en el laboratorio es:
+
+```python
+datos_ordenados = datos.copy()
+comparaciones = 0
+
+for i in range(1, len(datos_ordenados)):
+    clave = datos_ordenados[i]
+    j = i - 1
+
+    while j >= 0:
+        comparaciones += 1
+
+        if datos_ordenados[j] >= clave:
+            break
+
+        datos_ordenados[j + 1] = datos_ordenados[j]
+        j -= 1
+
+    datos_ordenados[j + 1] = clave
+
+return (datos_ordenados, comparaciones)
+```
+>Fragmento extraido de [archivo original](https://github.com/Andresmao12/AnalisisAlgoritmos-AndresAgudelo/blob/main/lab1-fundamentos-complejidad-recurrencias/algoritmos.py)
+
+
+El algoritmo recorre la lista desde la segunda posición y busca la posición correcta de cada elemento dentro de la parte que ya ha sido procesada.
+
+
+#### Análisis línea por línea
+
+```python
+datos_ordenados = datos.copy()
+```
+
+realiza una copia de la entrada y tiene un costo lineal:
+
+$$
+\Theta(n)
+$$
+
+---
+```python
+comparaciones = 0
+```
+
+tiene costo constante:
+
+$$
+\Theta(1)
+$$
+
+---
+
+```python
+for i in range(1, len(datos_ordenados)):
+```
+
+se ejecuta:
+
+$$
+n-1
+$$
+
+veces.
+
+Dentro del ciclo se ejecutan las asignaciones:
+
+```python
+clave = datos_ordenados[i]
+j = i - 1
+```
+
+una vez por cada iteración, por lo que su costo total es lineal.
+
+El comportamiento principal está determinado por:
+
+```python
+while j >= 0:
+```
+
+y por las operaciones realizadas dentro de este ciclo.
+
+---
+
+### Mejor caso
+
+El mejor caso ocurre cuando los elementos ya están ordenados de acuerdo con el criterio utilizado por el algoritmo. Por ejemplo:
+
+```text
+5 4 3 2 1
+```
+
+Para cada elemento solamente es necesario realizar una comparación entre elementos antes de detener el `while`.
+
+Como existen \(n-1\) elementos después del primero:
+
+$$
+C(n)=n-1
+$$
+
+Por tanto:
+
+$$
+\boxed{T(n)=\Theta(n)}
+$$
+
+---
+
+#### Peor caso
+
+El peor caso ocurre cuando la entrada está completamente en el orden contrario al requerido:
+
+```text
+1 2 3 4 5
+```
+
+En este escenario, cada elemento debe compararse con todos los elementos anteriores.
+
+El número de comparaciones es:
+
+$$
+1+2+3+\dots +(n-1)
+$$
+
+Utilizando la fórmula de la suma de los primeros enteros:
+
+$$
+\sum_{i=1}^{n-1}i=
+\frac{n(n-1)}{2}
+$$
+
+Por tanto:
+
+$$
+C(n)=\frac{n(n-1)}{2}
+$$
+
+Desarrollando:
+
+$$
+C(n)=\frac{n^2-n}{2}
+$$
+
+El término dominante es \(n^2\), por lo que:
+
+$$
+\boxed{T(n)=\Theta(n^2)}
+$$
+
+Esto también se verificó en la Parte 3. Para \(n=3200\):
+
+$$
+\frac{3200(3199)}{2}
+=
+5\,118\,400
+$$
+
+El experimento obtuvo exactamente:
+
+```text
+n=3200 | comparaciones=5118400
+```
+
+lo que coincide con el cálculo teórico.
+
+---
+
+#### Caso promedio
+
+En una entrada aleatoria, cada elemento tiene que desplazarse una cantidad variable de posiciones. En promedio, el número de comparaciones y desplazamientos crece cuadráticamente:
+
+$$
+\boxed{T(n)=\Theta(n^2)}
+$$
+
+Este comportamiento corresponde al escenario A utilizado para la comparación entre algoritmos.
+
+---
+
+### Tabla de complejidades
+
+| Algoritmo      |          Mejor caso |       Caso promedio |           Peor caso |
+| -------------- | ------------------: | ------------------: | ------------------: |
+| Insertion Sort |       \($\Theta(n)$\) |     \($\Theta(n^2)$\) |     \($\Theta(n^2)$\) |
+| Merge Sort     | \($\Theta(n\log n)$\) | \($\Theta(n\log n)$\) | \($\Theta(n\log n)$\) |
+
+La principal diferencia es que Insertion Sort puede aprovechar una entrada ya ordenada, pero su rendimiento puede degradarse a un crecimiento cuadrático. Merge Sort mantiene un crecimiento de orden $n \log n$ independientemente de la distribución inicial de los datos.
+
+
+
+# 4.2 Validación experimental
+
+Para validar el análisis teórico se implementó `merge_sort()` en `algoritmos.py` y se desarrolló el script `parte4_complejidad.py`.
+
+La comparación se realizó utilizando el **escenario A de Tamiza**, correspondiente a datos aleatorios.
+
+Se utilizaron los mismos tamaños de entrada de la Parte 3:
+
+$$
+[100,200,400,800,1600,3200,6400]
+$$
+
+Para cada tamaño se realizaron tres mediciones y se utilizó la mediana de los tiempos. La medición se realizó utilizando `time.perf_counter()`.
+
+## Resultados
+
+| Tamaño \(n\) | Insertion Sort (s) | Merge Sort (s) |
+| -----------: | -----------------: | -------------: |
+|          100 |           0.000547 |       0.000347 |
+|          200 |           0.001059 |       0.000493 |
+|          400 |           0.004169 |       0.000840 |
+|          800 |           0.017997 |       0.002462 |
+|         1600 |           0.074546 |       0.003902 |
+|         3200 |           0.312220 |       0.010935 |
+|         6400 |           1.223776 |       0.016834 |
+
+## Gráfica comparativa
+
+
+
+
+![Comparación de tiempos entre Insertion Sort y Merge Sort](graficas/parte4_tiempo.png)
+
+## Análisis de la gráfica
+
+La gráfica muestra que ambos algoritmos aumentan su tiempo de ejecución cuando crece el tamaño de entrada, pero lo hacen a ritmos diferentes.
+
+Insertion Sort presenta un crecimiento considerablemente más pronunciado. En particular, al pasar de \(n=3200\) a \(n=6400\), el tiempo aumenta de:
+
+$$
+0.312220\;s
+$$
+
+a:
+
+$$
+1.223776\;s
+$$
+
+Al duplicar el tamaño de entrada, el tiempo aumenta aproximadamente:
+
+$$
+\frac{1.223776}{0.312220}\approx3.92
+$$
+
+Este comportamiento es consistente con un crecimiento cuadrático:
+
+$$
+\Theta(n^2)
+$$
+
+Por otro lado, Merge Sort pasa de:
+
+$$
+0.010935\;s
+$$
+
+para \(n=3200\) a:
+
+$$
+0.016834\;s
+$$
+
+para \(n=6400\).
+
+En este caso, duplicar el tamaño de entrada no produce un aumento cercano a cuatro veces. La curva presenta un crecimiento mucho más moderado, consistente con el comportamiento esperado de:
+
+$$
+\Theta(n\log n)
+$$
+
+La diferencia también se observa directamente en \(n=6400\):
+
+$$
+T_{Insertion}=1.223776\;s
+$$
+
+$$
+T_{Merge}=0.016834\;s
+$$
+
+Por lo tanto, para ese tamaño de entrada, el tiempo medido de Insertion Sort fue aproximadamente:
+
+$$
+\frac{1.223776}{0.016834}\approx72.7
+$$
+
+veces el tiempo de Merge Sort.
+
+### Comparación con el análisis teórico
+
+Los resultados experimentales coinciden con las complejidades obtenidas en la sección 4.1.
+
+Insertion Sort presenta un crecimiento cercano a cuadrático en el escenario aleatorio, mientras que Merge Sort presenta un crecimiento considerablemente menor, correspondiente a $n \log n$.
+
+Para tamaños pequeños, las diferencias pueden ser menos representativas debido a factores constantes de implementación, llamadas recursivas y características del entorno de ejecución. Sin embargo, al aumentar el tamaño de entrada, la diferencia entre ambos algoritmos se hace mucho más evidente.
+
+
+
+# 4.3 Concepto técnico a la Secretaría de Salud
+
+## Recomendación técnica para Tamiza
+
+Tamiza debe utilizar **Merge Sort como algoritmo único de ordenamiento**. La decisión se basa en que el canal de entrada puede cambiar sin aviso y, por tanto, el sistema no debe depender de que los datos lleguen casi ordenados o en una distribución favorable para Insertion Sort.
+
+En las mediciones realizadas sobre el escenario A, correspondiente a datos aleatorios, Insertion Sort presentó un tiempo de **1,223776 segundos para 6.400 registros**, mientras que Merge Sort necesitó **0,016834 segundos** para el mismo tamaño. Esto representa una diferencia aproximada de 72,7 veces en ese punto de medición. Además, al duplicar la entrada de 3.200 a 6.400 registros, Insertion Sort pasó de 0,312220 a 1,223776 segundos, aproximadamente 3,92 veces más tiempo. Este comportamiento es consistente con su complejidad promedio \($\Theta(n^2)$\). Merge Sort, en cambio, presentó un crecimiento menor, consistente con \($\Theta(n\log n)$\).
+
+Para estimar el comportamiento con los 1.200.000 registros previstos, se realizó una extrapolación tomando como referencia la medición de 6.400 registros. Para Insertion Sort se utilizó el crecimiento cuadrático observado:
+
+$$
+T(n)\approx T(6400)
+\left(\frac{n}{6400}\right)^2
+$$
+
+Con \(T(6400)=1,223776\) segundos:
+
+$$
+T(1.200.000)\approx43.023\text{ segundos}
+$$
+
+Esto equivale aproximadamente a **11,95 horas**. Esta cifra es una **estimación y no una medición directa**. Aun así, supera la ventana disponible de cuatro horas, equivalente a 14.400 segundos.
+
+Para Merge Sort se utilizó una extrapolación basada en su comportamiento $n \log n$:
+
+$$
+T(n)\approx T(6400)
+\frac{n\log_2(n)}
+{6400\log_2(6400)}
+$$
+
+Utilizando el tiempo medido de 0,016834 segundos para 6.400 registros, la estimación para 1.200.000 registros es aproximadamente:
+
+$$
+T(1.200.000)\approx5,04\text{ segundos}
+$$
+
+Esta cifra también es una **estimación**, por lo que debe validarse posteriormente con datos y hardware representativos del entorno de producción.
+
+Respecto a la propuesta de comprar un servidor con el doble de velocidad, las mediciones muestran que aumentar el rendimiento del hardware no cambia la complejidad del algoritmo. Tomando como referencia la estimación anterior para Insertion Sort, incluso una reducción hipotética del 50 % produciría aproximadamente 21.512 segundos, equivalentes a cerca de 5,98 horas. Por lo tanto, una mejora de hardware por sí sola no elimina el problema de crecimiento cuadrático.
+
+También debe considerarse el uso adicional de memoria de Merge Sort, ya que el proceso de mezcla requiere espacio adicional. Este costo debe evaluarse frente al volumen de registros que Tamiza debe procesar. A cambio, se obtiene un comportamiento de tiempo más predecible ante diferentes distribuciones de entrada.
+
+Finalmente, utilizar una sola implementación de Merge Sort reduce el costo de mantenimiento frente a mantener algoritmos diferentes dependiendo del escenario de entrada. El escenario B puede dejar de ser casi ordenado si cambia el flujo de reproceso, por lo que basar el sistema en esa condición introduciría una dependencia sobre una característica que puede cambiar.
+
+Por estas razones, se recomienda implementar Merge Sort como algoritmo único de ordenamiento para Tamiza y validar su rendimiento con datos representativos antes del despliegue. La estimación realizada indica que su crecimiento es compatible con las restricciones de volumen y tiempo del problema, aunque la validación final debe realizarse en condiciones equivalentes a producción.
+
 
 
 
@@ -126,6 +564,7 @@ curso-analisis-algoritmos/
     │
     └── graficas/
         |-- grafica-parte1.png (Adicional)
+        |-- mapa-merge-parte4.png (Adicional)
         |-- mapa-parte2.png (Adicional)
         ├── parte3_comparaciones.png
         ├── parte3_tiempo.png
