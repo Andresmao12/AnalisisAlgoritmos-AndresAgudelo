@@ -80,8 +80,30 @@ Dicho esto, la elección del algoritmo debe considerar tanto el consumo de recur
 
 # **Parte 3: Peor caso, mejor caso y caso promedio**
 
-> **Proximamente...**
 
+
+Para analizar el comportamiento de un algoritmo debemos considerar las diferentes formas en las que pueden llegar los datos. Para esto, primero se fija un tamaño de entrada n y se considera el conjunto de todas las entradas posibles que tienen ese mismo tamaño. Sobre este conjunto se analiza cuántas operaciones realiza el algoritmo.
+
+- **Mejor caso:** representa la entrada, de tamaño n, que **requiere la menor cantidad de operaciones** entre todas las entradas posibles ese mismo tamaño.
+
+- **Peor caso:** representa la entrada que **requiere la mayor cantidad de operaciones**. 
+
+- **Caso promedio:** representa el promedio de operaciones que realiza el algoritmo considerando las entradas posibles de tamaño n. Para obtenerlo, se calcula el comportamiento medio sobre ese conjunto de entradas.
+
+
+Para Tamiza, la ventana de cuatro horas es una restricción estricta y no negociable, por lo que para decidir si un algoritmo puede utilizarse en producción, **definitivamente tomaría como referencia el peor caso**. El sistema debe tener un comportamiento que permita cumplir la restricción incluso cuando los datos lleguen en una condición desfavorable.
+
+> Lo ideal es siempre tomar el peor caso, ya que si en este se comporta como esperamos, en cualquier otra situacion, tambien lo hara.
+
+Para el caso de tamiza tomaremos un tamaño de datos de *n = 1'200.000* que es el que actualmente genera el problema y tomaremos los siguientes casos :
+
+- **Escenario A (Aleatorio):** se aproxima al caso promedio, ya que los registros no tienen una relación previa con el orden que necesita el algoritmo.
+
+- **Escenario B (Ordenado):** se aproxima al mejor caso, porque el 98 % de los registros ya se encuentra en el orden requerido y solamente una pequeña parte necesita ser reorganizada.
+
+- **Escenario C (Orden inverso):** representa el peor caso, porque los registros llegan exactamente en el orden contrario al que necesita producir insertion sort. Esto obliga al algoritmo a realizar la mayor cantidad de desplazamientos y comparaciones.
+
+Esta es la predicción inicial que se utilizará como referencia para comparar posteriormente los resultados experimentales.
 
 
 
