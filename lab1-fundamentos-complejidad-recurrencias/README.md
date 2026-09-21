@@ -584,14 +584,123 @@ Las dependencias utilizadas en el proyecto se encuentran registradas en `require
 
 ## Ejecucion del codigo
 
-> **Proximamente...**
+Inicialmente debemos clonar el repositorio a nuestra maquina con el siguiente comando:
+```bash
+Git clone https://github.com/Andresmao12/AnalisisAlgoritmos-AndresAgudelo.git
+```
+
+Ahora, antes de comenzar a ejecutar codigo, debemos asegurarnos de estar dentro de la carpeta del laboratorio:
+```bash
+cd curso-analisis-algoritmos/lab1-fundamentos-complejidad-recurrencias
+```
+
+### 1. Crear el entorno virtual
+
+Se recomienda utilizar un entorno virtual para mantener separadas las dependencias del proyecto:
+
+```bash
+python -m venv .venv
+```
+
+### 2. Activar el entorno virtual
+
+En **Windows**:
+
+```bash
+.venv\Scripts\activate
+```
+
+En **macOS/Linux**:
+
+```bash
+source .venv/bin/activate
+```
+
+Si la activación fue correcta, el nombre del entorno virtual aparecerá al inicio de la terminal, por ejemplo:
+
+```bash
+(venv) C:\...\lab1-fundamentos-complejidad-recurrencias>
+```
+
+### 3. Instalar las dependencias
+
+Con el entorno virtual activo, instalar las librerías necesarias:
+
+```bash
+pip install -r requirements.txt
+```
+>Las puedes ver directamente en el archivo requirements.txt en la raiz del proyecto
+
+Puedes verificar las librerias instaladas con el siguiente comando:
+```bash
+pip list
+```
+
+
+### 4. Ejecucion de las pruebas
+
+Estando ubicados en la ruta `\curso-analisis-algoritmos` procedemos con las pruebas
+
+
+### 4.1. Experimentos de la Parte 3
+
+Para ejecutar las pruebas de `insertion_sort` sobre los tres escenarios:
+
+```bash
+python .\lab1-fundamentos-complejidad-recurrencias\parte3_casos.py 
+```
+
+El programa genera las gráficas correspondientes dentro de la carpeta `graficas/`:
+
+```text
+graficas/
+├── parte3_comparaciones.png
+└── parte3_tiempo.png
+```
+
+### 4.2. Ejecutar los experimentos de la Parte 4
+
+Para ejecutar la comparación entre `insertion_sort` y `merge_sort`:
+
+```bash
+python .\lab1-fundamentos-complejidad-recurrencias\parte4_complejidad.py
+```
+
+Este programa genera:
+
+```text
+graficas/
+└── parte4_tiempo.png
+```
+
+### 6. Desactivar el entorno virtual
+
+Al terminar las pruebas, el entorno virtual se puede cerrar con:
+
+```bash
+deactivate
+```
+
+Las ejecuciones deben realizarse con el mismo código y configuración definidos en el proyecto para poder reproducir los resultados del informe.
 
 
 ## Conclusiones
 
-> **Proximamente...**
+Los resultados obtenidos permiten comprobar experimentalmente el comportamiento esperado de `insertion_sort` en los tres escenarios de Tamiza. La predicción realizada antes de las mediciones se mantuvo: el escenario **B — Casi ordenado** presentó el mejor comportamiento, el escenario **C — Inverso** presentó el peor y el escenario **A — Aleatorio** quedó entre ambos.
 
+Esto se puede observar claramente en las comparaciones realizadas. Para `n = 6400`, el escenario B necesitó solamente **10.654 comparaciones**, mientras que el escenario A realizó **10.333.422** y el escenario C llegó a **20.476.800**. En el escenario C, este resultado coincide con el comportamiento teórico del peor caso de insertion sort, donde se realizan aproximadamente `n(n-1)/2` comparaciones.
 
+Los tiempos también muestran esta diferencia. Para `n = 6400`, insertion sort tardó **0,001008 segundos** en el escenario B, **0,963775 segundos** en el escenario A y **1,883338 segundos** en el escenario C. A medida que aumenta el tamaño de entrada, la diferencia entre los escenarios se hace cada vez mayor, especialmente en los casos A y C.
+
+En la comparación con `merge_sort`, los resultados muestran una diferencia importante. Para `n = 6400`, insertion sort tardó **0,927114 segundos**, mientras que merge sort tardó **0,015918 segundos**. En esta prueba, merge sort fue aproximadamente **58 veces más rápido**. Esto coincide con el análisis teórico, ya que insertion sort tiene un comportamiento cuadrático en su peor caso, mientras que merge sort presenta una complejidad de **Θ(n log n)**.
+
+Para estimar el comportamiento con los **1.200.000 registros** de Tamiza, no se utilizó una regla de tres simple, sino el crecimiento esperado de cada algoritmo. Tomando como referencia la medición de `n = 6400`, el crecimiento cuadrático de insertion sort produciría una estimación aproximada de **9,05 horas** para una entrada de ese tamaño. Esta es solamente una estimación basada en las mediciones realizadas y no una medición directa con 1.200.000 registros. Por lo tanto, supera la ventana máxima de cuatro horas.
+
+Para merge sort, utilizando su crecimiento `n log n` y la medición obtenida con `n = 6400`, la estimación es de aproximadamente **4,8 segundos** para 1.200.000 registros. Al igual que en el caso anterior, se trata de una extrapolación y no de una ejecución directa con el volumen real.
+
+Por lo anterior, para el proceso de producción de Tamiza se recomienda utilizar **merge sort** como alternativa a insertion sort. La decisión se debe principalmente a su comportamiento frente al crecimiento de los datos y a que el orden de llegada de los registros puede cambiar. Aunque insertion sort puede funcionar muy bien cuando los datos están casi ordenados, no se puede depender de esta condición si el canal de entrada puede cambiar sin previo aviso.
+
+Finalmente, duplicar la velocidad del servidor podría reducir los tiempos de ejecución, pero no cambiaría la complejidad de insertion sort. Los resultados muestran que el problema principal está relacionado con el crecimiento del número de operaciones. Por esta razón, cambiar a un algoritmo con mejor comportamiento asintótico resulta más sostenible que depender únicamente de aumentar la capacidad del hardware.
 
 
 
