@@ -80,7 +80,6 @@ Dicho esto, la elección del algoritmo debe considerar tanto el consumo de recur
 
 # **Parte 3: Peor caso, mejor caso y caso promedio**
 
-
 Para analizar el comportamiento de un algoritmo debemos considerar las diferentes formas en las que pueden llegar los datos. Para esto, primero se fija un tamaño de entrada n y se considera el conjunto de todas las entradas posibles que tienen ese mismo tamaño. Sobre este conjunto se analiza cuántas operaciones realiza el algoritmo.
 
 - **Mejor caso:** representa la entrada, de tamaño n, que **requiere la menor cantidad de operaciones** entre todas las entradas posibles ese mismo tamaño.
@@ -98,11 +97,31 @@ Para el caso de tamiza tomaremos un tamaño de datos de *n = 1'200.000* que es e
 
 - **Escenario A (Aleatorio):** se aproxima al caso promedio, ya que los registros no tienen una relación previa con el orden que necesita el algoritmo.
 
-- **Escenario B (Ordenado):** se aproxima al mejor caso, porque el 98 % de los registros ya se encuentra en el orden requerido y solamente una pequeña parte necesita ser reorganizada.
+- **Escenario B (Casi ordenado):** se aproxima al mejor caso, porque el 98 % de los registros ya se encuentra en el orden requerido y solamente una pequeña parte necesita ser reorganizada.
 
 - **Escenario C (Orden inverso):** representa el peor caso, porque los registros llegan exactamente en el orden contrario al que necesita producir insertion sort. Esto obliga al algoritmo a realizar la mayor cantidad de desplazamientos y comparaciones.
 
 Esta es la predicción inicial que se utilizará como referencia para comparar posteriormente los resultados experimentales.
+
+### Resultados experimentales
+
+Una vez realizada la predicción, se ejecutaron las pruebas para los tamaños de entrada definidos en el laboratorio. Se midieron tanto el número de comparaciones entre elementos como el tiempo de ejecución de `insertion_sort`.
+
+#### Comparaciones por escenario
+
+![Comparaciones de Insertion Sort](graficas/parte3_comparaciones.png)
+
+La gráfica muestra cómo aumenta el número de comparaciones a medida que crece el tamaño de entrada para cada uno de los tres escenarios.
+
+#### Tiempo de ejecución por escenario
+
+![Tiempo de ejecución de Insertion Sort](graficas/parte3_tiempo.png)
+
+La gráfica muestra el tiempo de ejecución de `insertion_sort` mientras el tamaño de la entrada aumenta.
+
+### Análisis de los resultados
+
+Los resultados obtenidos permiten confirmar la prediccion, donde afirmamos que el `caso B (Casi ordenado)` es el mejor (o el mas cercano al mejor caso), el `caso C (inverso)` es el peor caso, y el `caso A (alelatorio)` es el caso promedio ya que su comportamiento se situa entre los otros dos casos.
 
 
 
