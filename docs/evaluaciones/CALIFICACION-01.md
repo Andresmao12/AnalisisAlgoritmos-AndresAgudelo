@@ -44,7 +44,7 @@
 - Hay docstrings y tipos en casi todo.
 
 **Lo que puede mejorar:**
-- Hay faltas de estilo: líneas en blanco de más, espacios al final de línea y archivos sin salto de línea final.
+- Hay faltas de estilo: líneas en blanco de más.
 - `medir_tiempo` en `parte4_complejidad.py` no tiene tipo para el parámetro `algoritmo`, y ese archivo no tiene descripción al inicio.
 - Los scripts solo funcionan si se ejecutan desde la carpeta raíz del repositorio, porque las rutas de las gráficas están escritas así.
 
@@ -79,4 +79,4 @@ Sí. Los dos algoritmos ordenan bien en pruebas con listas aleatorias, casi orde
 - Después de cada corrida final, copie al informe solo los números de las gráficas publicadas, para que todo coincida.
 - Complete el conteo línea a línea mostrando cuántas veces se ejecuta cada línea y sumando.
 - Dé un segundo ejemplo con cantidad de datos y restricción, y estime energía o tiempo acumulado.
-- Revise el estilo del código (líneas en blanco, espacios sobrantes, tipos en todas las funciones).
+- Revise el estilo del código (líneas en blanco, tipos en todas las funciones).
