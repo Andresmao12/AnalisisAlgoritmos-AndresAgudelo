@@ -18,7 +18,8 @@ from subarreglo import subarreglo_fuerza_bruta, subarreglo_maximo
 
 SEMILLA = 42
 TAMANOS = [10, 50, 100, 500, 1000, 2000, 4000, 8000, 16000]
-RUTA_GRAFICA = os.path.join("graficas", "tiempo_vs_n.png")
+RUTA_DIRECTORIO_GRAFICA = os.path.join("lab2-divide-y-vencer", "graficas")
+RUTA_GRAFICA = os.path.join("lab2-divide-y-vencer", "graficas", "tiempo_vs_n.png")
 
 
 def repeticiones_para(n: int) -> int:
@@ -81,7 +82,7 @@ def ejecutar_experimento() -> list[tuple[int, float, float]]:
         t_dyv, suma_dyv = medir(subarreglo_maximo, datos, 0, n - 1)
         assert suma_bruta == suma_dyv, f"Sumas distintas para n={n}"
         filas.append((n, t_bruta, t_dyv))
-        
+
     return filas
 
 
@@ -106,7 +107,7 @@ def graficar(filas: list[tuple[int, float, float]]) -> None:
     plt.grid(True, which="both", alpha=0.3)
     plt.legend()
     plt.tight_layout()
-    os.makedirs("graficas", exist_ok=True)
+    os.makedirs(RUTA_DIRECTORIO_GRAFICA, exist_ok=True)
     plt.savefig(RUTA_GRAFICA, dpi=150)
     plt.close()
 
