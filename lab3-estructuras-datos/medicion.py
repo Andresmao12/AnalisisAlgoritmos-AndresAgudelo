@@ -1,6 +1,7 @@
 """Experimentos de medicion: lista enlazada frente a tabla hash."""
 import random
 import time
+import os
 
 import matplotlib.pyplot as plt
 
@@ -8,7 +9,7 @@ from estructuras import ListaEnlazada, TablaHash
 
 BUSQUEDAS = 200
 SEMILLA = 42
-
+RUTA_DIRECTORIO_GRAFICAS = os.path.join("lab3-estructuras-datos", "graficas")
 
 def generar_guias_inexistentes(existentes: set[int], cantidad: int, semilla: int = 7) -> list[int]:
     """Genera guias de diez digitos que no estan en la coleccion.
@@ -157,7 +158,8 @@ def experimento_a() -> None:
     plt.grid(True, alpha=0.3)
     plt.legend()
     plt.tight_layout()
-    plt.savefig("graficas/lista_vs_tabla.png", dpi=150)
+    os.makedirs(RUTA_DIRECTORIO_GRAFICAS, exist_ok=True)
+    plt.savefig(os.path.join(RUTA_DIRECTORIO_GRAFICAS, "lista_vs_tabla.png"), dpi=150)
     plt.close()
 
 
@@ -187,7 +189,8 @@ def experimento_b() -> None:
     plt.grid(True, alpha=0.3)
     plt.legend()
     plt.tight_layout()
-    plt.savefig("graficas/tiempo_vs_alfa.png", dpi=150)
+    os.makedirs(RUTA_DIRECTORIO_GRAFICAS, exist_ok=True)
+    plt.savefig(os.path.join(RUTA_DIRECTORIO_GRAFICAS, "tiempo_vs_alfa.png"), dpi=150)
     plt.close()
 
 
